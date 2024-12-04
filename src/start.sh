@@ -18,6 +18,15 @@ sed \
     -e "s|HAAutoDiscoveryDeviceName=.*|HAAutoDiscoveryDeviceName=${HA_AUTO_DISCOVERY_DEVICE_NAME}|"  \
     -e "s|HAAutoDiscoveryDeviceManufacturer=.*|HAAutoDiscoveryDeviceManufacturer=${HA_AUTO_DISCOVERY_DEVICE_MANUFACTURER}|"  \
     -e "s|HAAutoDiscoveryDeviceModel=.*|HAAutoDiscoveryDeviceModel=${HA_AUTO_DISCOVERY_DEVICE_MODEL}|"  \
+    -e "s|FanOutAbsent=.*|FanOutAbsent=${DEVICE_FANOUT_ABSENT}|" \
+    -e "s|FanOutLow=.*|FanOutLow=${DEVICE_FANOUT_LOW}|" \
+    -e "s|FanOutMid=.*|FanOutMid=${DEVICE_FANOUT_MID}|" \
+    -e "s|FanOutHigh=.*|FanOutHigh=${DEVICE_FANOUT_HIGH}|" \
+    -e "s|FanInAbsent=.*|FanInAbsent=${DEVICE_FANIN_ABSENT}|" \
+    -e "s|FanInLow=.*|FanInLow=${DEVICE_FANIN_LOW}|" \
+    -e "s|FanInMid=.*|FanInMid=${DEVICE_FANIN_MID}|" \
+    -e "s|FanInHigh=.*|FanInHigh=${DEVICE_FANIN_HIGH}|" \
+    -e "s|SetUpFanLevelsAtStart=.*|SetUpFanLevelsAtStart=${DEVICE_SET_FAN_LEVEL_AT_START}|" \
     /opt/hacomfoairmqtt/config.ini.docker >  /opt/hacomfoairmqtt/config.ini
 
 # Start the first process
@@ -30,7 +39,7 @@ else
 fi
 
 # Start the second process
-/usr/bin/python3 /opt/hacomfoairmqtt/ca350.py &
+python /opt/hacomfoairmqtt/ca350.py &
 
 # Wait for any process to exit
 wait -n

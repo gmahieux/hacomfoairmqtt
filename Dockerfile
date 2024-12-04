@@ -1,6 +1,4 @@
-FROM ubuntu:22.04
-LABEL maintainer="jens@schanz.cloud"
-LABEL version="0.1"
+FROM python:3.11.3-alpine
 LABEL description="Docker image for hacomfoairmqtt and serial over IP"
 
 ENV SOCAT="True"
@@ -23,14 +21,17 @@ ENV HA_AUTO_DISCOVERY_DEVICE_NAME="CA350"
 ENV HA_AUTO_DISCOVERY_DEVICE_MANUFACTURER="Zehnder"
 ENV HA_AUTO_DISCOVERY_DEVICE_MODEL="ComfoAir 350"
 
-RUN apt update
-RUN apt upgrade -y
-RUN apt install -y socat python3-paho-mqtt==1.6.1 python3-serial python3-yaml
+RUN pip install pyserial paho-mqtt PyYAML
+
+RUN apk update
+RUN apk add socat
+
+
 
 RUN mkdir -p /opt/hacomfoairmqtt
 COPY src/ca350.py /opt/hacomfoairmqtt/ca350.py
 COPY src/config.ini.docker /opt/hacomfoairmqtt/config.ini.docker
 
 COPY src/start.sh /usr/local/bin/start.sh
-RUN chmod 744 /usr/local/bin/start.sh
-CMD /usr/local/bin/start.sh
+RUN chmod 755 /usr/local/bin/start.sh
+CMD ["sh", "/usr/local/bin/start.sh"]

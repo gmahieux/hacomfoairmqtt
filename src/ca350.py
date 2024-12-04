@@ -924,7 +924,7 @@ def send_autodiscover(name, entity_id, entity_type, state_topic = None, device_c
     debug_msg('Sending autodiscover for ' + mqtt_config_topic)
     publish_message(mqtt_message, mqtt_config_topic)
 
-def on_connect(client, userdata, flags, rc):
+def on_connect(client, userdata, flags, reason_code, properties):
     publish_message("online","comfoair/status")
 	# Temporary: deletion of old topic for Fan entity auto discovery
     delete_message("homeassistant/fan/ca350_fan/config")
@@ -1123,7 +1123,7 @@ def on_connect(client, userdata, flags, rc):
         delete_message("homeassistant/climate/ca350_climate/config")
     topic_subscribe()
 
-def on_disconnect(client, userdata, rc):
+def on_disconnect(client, userdata, reason_code, properties):
     if rc != 0:
         warning_msg('Unexpected disconnection from MQTT, trying to reconnect')
         recon()
@@ -1133,7 +1133,7 @@ def on_disconnect(client, userdata, rc):
 ###
 
 # Connect to the MQTT broker
-mqttc = mqtt.Client('CA350')
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,'CA350')
 if  MQTTUser != False and MQTTPassword != False :
     mqttc.username_pw_set(MQTTUser,MQTTPassword)
 
