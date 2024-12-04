@@ -39,7 +39,7 @@ else
 fi
 
 # Start the second process
-/usr/bin/python3 /opt/hacomfoairmqtt/ca350.py &
+python /opt/hacomfoairmqtt/ca350.py &
 
 # Wait for any process to exit
 wait -n
