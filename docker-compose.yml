@@ -1,18 +1,27 @@
 version: '2'
 
 services:    
-  hassioaddon-comfoair350:
-    image: k42sde/hassioaddon-comfoair350:latest
-    container_name: hassioaddon-comfoair350
+  comfoair:
+    image: gmahieux/hacomfoairmqtt:latest
+    container_name: comfoair
     environment:
       - SOCAT=True
       - COMFOAIR_IP=192.168.1.50
       - COMFOAIR_PORT=502
-      - SERIAL_PORT="/dev/comfoair350"
+      - SERIAL_PORT=/dev/comfoair350
       - RS485_PROTOCOL=False
       - REFRESH_INTERVAL=10
       - ENABLE_PC_MODE=False
       - DEBUG=False
+      - FAN_OUT_ABSENT=15
+      - FAN_OUT_LOW=35
+      - FAN_OUT_MID=50
+      - FAN_OUT_HIGH=70
+      - FAN_IN_ABSENT=20
+      - FAN_IN_LOW=40
+      - FAN_IN_MID=55
+      - FAN_IN_HIGH=75
+      - SETUP_FAN_LEVELS_AT_START=True
       - MQTT_SERVER=mosquitto.domain.tld
       - MQTT_PORT=1883
       - MQTT_KEEPALIVE=45
@@ -24,14 +33,4 @@ services:
       - HA_AUTO_DISCOVERY_DEVICE_NAME=CA350
       - HA_AUTO_DISCOVERY_DEVICE_MANUFACTURER=Zehnder
       - HA_AUTO_DISCOVERY_DEVICE_MODEL=Comfoair 350
-      - DEVICE_FANOUT_ABSENT=15
-      - DEVICE_FANOUT_LOW=35
-      - DEVICE_FANOUT_MID=50
-      - DEVICE_FANOUT_HIGH=70
-      - DEVICE_FANIN_ABSENT=20
-      - DEVICE_FANIN_LOW=40
-      - DEVICE_FANIN_MID=55
-      - DEVICE_FANIN_HIGH=75
-      - DEVICE_SET_FAN_LEVEL_AT_START=True
-
     restart: always
