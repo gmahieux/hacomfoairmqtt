@@ -11,13 +11,13 @@ debug=False
 
 [DEVICE]
 FanOutAbsent=15
-FanOutLow=25
-FanOutMid=40
+FanOutLow=35
+FanOutMid=50
 FanOutHigh=70
-FanInAbsent=15
-FanInLow=25
-FanInMid=40
-FanInHigh=70
+FanInAbsent=20
+FanInLow=40
+FanInMid=55
+FanInHigh=75
 SetUpFanLevelsAtStart=True
 
 [MQTT]

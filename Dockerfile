@@ -1,4 +1,4 @@
-FROM python:3.11.3-alpine
+FROM python:slim
 LABEL description="Docker image for hacomfoairmqtt and serial over IP"
 
 ENV SOCAT="True"
@@ -20,26 +20,26 @@ ENV HA_AUTO_DISCOVERY_DEVICE_ID="ca350"
 ENV HA_AUTO_DISCOVERY_DEVICE_NAME="CA350"
 ENV HA_AUTO_DISCOVERY_DEVICE_MANUFACTURER="Zehnder"
 ENV HA_AUTO_DISCOVERY_DEVICE_MODEL="ComfoAir 350"
-ENV DEVICE_FANOUT_ABSENT="15"
-ENV DEVICE_FANOUT_LOW="35"
-ENV DEVICE_FANOUT_MID="50"
-ENV DEVICE_FANOUT_HIGH="70"
-ENV DEVICE_FANIN_ABSENT="20"
-ENV DEVICE_FANIN_LOW="40"
-ENV DEVICE_FANIN_MID="55"
-ENV DEVICE_FANIN_HIGH="75"
+ENV FAN_OUT_ABSENT="15"
+ENV FAN_OUT_LOW="35"
+ENV FAN_OUT_MID="50"
+ENV FAN_OUT_HIGH="70"
+ENV FAN_IN_ABSENT="20"
+ENV FAN_IN_LOW="40"
+ENV FAN_IN_MID="55"
+ENV FAN_IN_HIGH="75"
+ENV SETUP_FAN_LEVELS_AT_START="True"
 
-RUN pip install pyserial paho-mqtt PyYAML
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends socat \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apk update
-RUN apk add socat
+COPY src/requirements.txt /opt/hacomfoairmqtt/requirements.txt
+RUN pip install --no-cache-dir -r /opt/hacomfoairmqtt/requirements.txt
 
-
-
-RUN mkdir -p /opt/hacomfoairmqtt
 COPY src/ca350.py /opt/hacomfoairmqtt/ca350.py
 COPY src/config.ini.docker /opt/hacomfoairmqtt/config.ini.docker
 
 COPY src/start.sh /usr/local/bin/start.sh
 RUN chmod 755 /usr/local/bin/start.sh
-CMD ["sh", "/usr/local/bin/start.sh"]
+CMD ["/usr/local/bin/start.sh"]

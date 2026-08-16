@@ -7,6 +7,15 @@ sed \
     -e "s|refresh_interval=.*|refresh_interval=${REFRESH_INTERVAL}|"  \
     -e "s|enablePcMode=.*|enablePcMode=${ENABLE_PC_MODE}|"  \
     -e "s|debug=.*|debug=${DEBUG}|"  \
+    -e "s|FanOutAbsent=.*|FanOutAbsent=${FAN_OUT_ABSENT}|"  \
+    -e "s|FanOutLow=.*|FanOutLow=${FAN_OUT_LOW}|"  \
+    -e "s|FanOutMid=.*|FanOutMid=${FAN_OUT_MID}|"  \
+    -e "s|FanOutHigh=.*|FanOutHigh=${FAN_OUT_HIGH}|"  \
+    -e "s|FanInAbsent=.*|FanInAbsent=${FAN_IN_ABSENT}|"  \
+    -e "s|FanInLow=.*|FanInLow=${FAN_IN_LOW}|"  \
+    -e "s|FanInMid=.*|FanInMid=${FAN_IN_MID}|"  \
+    -e "s|FanInHigh=.*|FanInHigh=${FAN_IN_HIGH}|"  \
+    -e "s|SetUpFanLevelsAtStart=.*|SetUpFanLevelsAtStart=${SETUP_FAN_LEVELS_AT_START}|"  \
     -e "s|MQTTServer=.*|MQTTServer=${MQTT_SERVER}|"  \
     -e "s|MQTTPort=.*|MQTTPort=${MQTT_PORT}|"  \
     -e "s|MQTTKeepalive=.*|MQTTKeepalive=${MQTT_KEEPALIVE}|"  \
@@ -18,15 +27,6 @@ sed \
     -e "s|HAAutoDiscoveryDeviceName=.*|HAAutoDiscoveryDeviceName=${HA_AUTO_DISCOVERY_DEVICE_NAME}|"  \
     -e "s|HAAutoDiscoveryDeviceManufacturer=.*|HAAutoDiscoveryDeviceManufacturer=${HA_AUTO_DISCOVERY_DEVICE_MANUFACTURER}|"  \
     -e "s|HAAutoDiscoveryDeviceModel=.*|HAAutoDiscoveryDeviceModel=${HA_AUTO_DISCOVERY_DEVICE_MODEL}|"  \
-    -e "s|FanOutAbsent=.*|FanOutAbsent=${DEVICE_FANOUT_ABSENT}|" \
-    -e "s|FanOutLow=.*|FanOutLow=${DEVICE_FANOUT_LOW}|" \
-    -e "s|FanOutMid=.*|FanOutMid=${DEVICE_FANOUT_MID}|" \
-    -e "s|FanOutHigh=.*|FanOutHigh=${DEVICE_FANOUT_HIGH}|" \
-    -e "s|FanInAbsent=.*|FanInAbsent=${DEVICE_FANIN_ABSENT}|" \
-    -e "s|FanInLow=.*|FanInLow=${DEVICE_FANIN_LOW}|" \
-    -e "s|FanInMid=.*|FanInMid=${DEVICE_FANIN_MID}|" \
-    -e "s|FanInHigh=.*|FanInHigh=${DEVICE_FANIN_HIGH}|" \
-    -e "s|SetUpFanLevelsAtStart=.*|SetUpFanLevelsAtStart=${DEVICE_SET_FAN_LEVEL_AT_START}|" \
     /opt/hacomfoairmqtt/config.ini.docker >  /opt/hacomfoairmqtt/config.ini
 
 # Start the first process
