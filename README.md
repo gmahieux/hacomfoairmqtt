@@ -25,6 +25,27 @@ If you want to install the software as Docker Container, in Home Assistant Opera
 
 <https://github.com/adorobis/hacomfoairmqtt/wiki>
 
+## Breaking change: fan level environment variables renamed
+
+Since the sync with upstream `adorobis/hacomfoairmqtt`, the fan level environment variables of the
+Docker image use the upstream naming. If you run this image with a `docker-compose.yml` written for a
+previous version, update the variable names - otherwise the fan levels silently fall back to the
+image defaults.
+
+Old name | New name
+------------ | -------------
+DEVICE_FANOUT_ABSENT | FAN_OUT_ABSENT
+DEVICE_FANOUT_LOW | FAN_OUT_LOW
+DEVICE_FANOUT_MID | FAN_OUT_MID
+DEVICE_FANOUT_HIGH | FAN_OUT_HIGH
+DEVICE_FANIN_ABSENT | FAN_IN_ABSENT
+DEVICE_FANIN_LOW | FAN_IN_LOW
+DEVICE_FANIN_MID | FAN_IN_MID
+DEVICE_FANIN_HIGH | FAN_IN_HIGH
+DEVICE_SET_FAN_LEVEL_AT_START | SETUP_FAN_LEVELS_AT_START
+
+The `docker-compose.yml` shipped in this repository already uses the new names.
+
 
 ## Home Assistant Comfoair MQTT Configuration
 
